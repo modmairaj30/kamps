@@ -34,7 +34,9 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
- 
+
+
+
   AuthenticationManager authenticationManager;
 
   UserRepository userRepository;
@@ -53,7 +55,7 @@ public class AuthController {
   this.jwtUtils = jwtUtils;
   }
 
-  @PostMapping("/signin")
+  @PostMapping(value = "/signin", produces = "application/json", consumes = "application/json")
   public ResponseEntity<UserInfoResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     Authentication authentication = authenticationManager
@@ -73,7 +75,7 @@ public class AuthController {
                                    userDetails.getEmail()));
   }
 
-  @PostMapping("/signup")
+  @PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
   public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 	  if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 		   throw new DataFormatException("DataFormatException");
@@ -97,7 +99,7 @@ public class AuthController {
     return ResponseEntity.ok(new MessageResponse(CommonConstant.USER_REGISTERED));
   }
 
-  @PostMapping("/signout")
+  @PostMapping(value = "/signout", produces = "application/json", consumes = "application/json")
   public ResponseEntity<MessageResponse> logoutUser() {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
