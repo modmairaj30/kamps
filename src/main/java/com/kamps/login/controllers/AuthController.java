@@ -1,10 +1,5 @@
 package com.kamps.login.controllers;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -22,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kamps.constant.CommonConstant;
 import com.kamps.exception.DataFormatException;
-import com.kamps.login.models.ERole;
-import com.kamps.login.models.Role;
 import com.kamps.login.models.User;
 import com.kamps.login.payload.request.LoginRequest;
 import com.kamps.login.payload.request.SignupRequest;
@@ -32,7 +25,6 @@ import com.kamps.login.payload.response.UserInfoResponse;
 import com.kamps.login.repository.UserRepository;
 import com.kamps.login.security.jwt.JwtUtils;
 import com.kamps.login.security.services.UserDetailsImpl;
-import com.kamps.repository.RoleRepository;
 
 import jakarta.validation.Valid;
 
@@ -47,17 +39,16 @@ public class AuthController {
 
   UserRepository userRepository;
 
-  RoleRepository roleRepository;
+
 
   PasswordEncoder encoder;
 
   JwtUtils jwtUtils;
   
   @Autowired
-  public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,RoleRepository roleRepository, PasswordEncoder encoder,JwtUtils jwtUtils){
+  public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,PasswordEncoder encoder,JwtUtils jwtUtils){
   this.authenticationManager = authenticationManager;
   this.userRepository = userRepository;
-  this.roleRepository = roleRepository;
   this.encoder = encoder;
   this.jwtUtils = jwtUtils;
   }
