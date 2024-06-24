@@ -1,5 +1,6 @@
 package com.kamps.login.controllers;
 
+import com.kamps.exception.UserExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -78,7 +79,7 @@ public class AuthController {
   @PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
   public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 	  if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-		   throw new DataFormatException("DataFormatException");
+		   throw new UserExistException("Given User Already  Exist");
 	  }
 	  
 	  if (userRepository.existsByUsername(signUpRequest.getUsername())) {
