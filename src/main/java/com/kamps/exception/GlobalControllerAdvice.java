@@ -30,6 +30,10 @@ public class GlobalControllerAdvice {
     public ResponseEntity<String> handleDataFormatException(DataFormatException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Data format error: " + ex.getMessage());
     }
+    @ExceptionHandler(UserExistException.class)
+    public ResponseEntity<String> handleUserExistException(UserExistException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User Exist error: " + ex.getMessage());
+    }
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<String> handleConstraintViolationExceptionException(ConstraintViolationException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Data format error: " + ex.getMessage());
